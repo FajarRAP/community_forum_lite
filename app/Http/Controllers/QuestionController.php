@@ -22,4 +22,9 @@ class QuestionController extends Controller
             'question' => $question,
         ]);
     }
+
+    public function create()
+    {
+        return view('question.create');
+    }
 }
