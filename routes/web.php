@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
+Route::fallback(fn() => redirect('/questions'));
+
 Route::get('/', fn() => redirect('/questions'));
 
 Route::get('/questions', [QuestionController::class, 'index'])->name('home');
