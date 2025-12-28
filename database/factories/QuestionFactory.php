@@ -18,11 +18,14 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         $title = fake()->sentence();
+        $createdAt = fake()->dateTimeBetween('-1 year', 'now');
 
         return [
             'title' => $title,
-            'body' => fake()->paragraph(),
+            'body' => fake()->paragraph(rand(5, 50)),
             'slug' => Str::slug($title),
+            'created_at' => $createdAt,
+            'updated_at' => $createdAt,
         ];
     }
 }
