@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,9 +15,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            TagSeeder::class,
-            UserSeeder::class,
-        ]);
+        $tags = (new TagSeeder())->collect();
+        $users = (new UserSeeder())->collect();
+
+        foreach ($users as $user) {
+            $questions = Question::factory()->count(5)->create([
+                'user_id' => $user->id,
+            ]);
+
+            foreach ($questions as $question) {
+                $question->tags()->attach(
+                    $tags->random(rand(1, 5))->pluck('id')->toArray()
+                );
+
+                Answer::factory()->count(3)->create([
+                    'user_id' => $users->where('id', '!=', $user->id)->random()->id,
+                    'question_id' => $question->id,
+                ]);
+            }
+        }
     }
 }
