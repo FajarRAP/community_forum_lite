@@ -12,9 +12,7 @@
     <div class="mt-3 flex items-center justify-between text-gray-500 gap-1 text-xs sm:text-sm">
         <div class="flex gap-1">
             @foreach ($question->tags as $tag)
-                <div
-                    class="bg-gray-100 rounded p-1 font-semibold text-gray-900 text-xs hover:cursor-pointer hover:bg-gray-200">
-                    {{ $tag->name }}</div>
+                <x-questions.tag :$tag />
             @endforeach
         </div>
         <p>
