@@ -9,11 +9,10 @@ class QuestionController extends Controller
 {
     public function index()
     {
-        $questions = Question::all();
 
         return view('question.index', [
-            'questions' => $questions,
-            'question_count' => $questions->count(),
+            'questions' => Question::latest()->paginate(5),
+            'question_count' => Question::all()->count(),
         ]);
     }
 
