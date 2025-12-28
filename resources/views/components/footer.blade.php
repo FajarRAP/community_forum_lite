@@ -1,4 +1,4 @@
-<footer class="bg-white border-t border-gray-100">
+<footer class="bg-white border-t border-gray-200">
     <div class="max-w-4xl mx-auto py-8 px-6 flex flex-col md:flex-row justify-between items-center">
         {{-- Copyright --}}
         <div class="text-gray-400 text-sm mb-4 md:mb-0">
