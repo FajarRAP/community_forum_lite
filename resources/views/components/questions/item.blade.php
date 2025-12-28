@@ -2,7 +2,7 @@
 
 <div class="px-6 py-4 border-t border-gray-200">
     {{-- Title --}}
-    <a href="#"
+    <a href="{{ route('question.show', ['question' => $question, 'slug' => Str::slug($question->slug)]) }}"
         class="text-xl font-semibold text-indigo-500 hover:text-indigo-700 transition">{{ $question->title }}</a>
 
     {{-- Body --}}
