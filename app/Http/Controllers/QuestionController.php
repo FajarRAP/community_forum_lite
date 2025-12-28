@@ -10,9 +10,17 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
+
         return view('question.index', [
             'questions' => $questions,
             'question_count' => $questions->count(),
+        ]);
+    }
+
+    public function show(Question $question)
+    {
+        return view('question.show', [
+            'question' => $question,
         ]);
     }
 }
