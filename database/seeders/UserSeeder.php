@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
 
 class UserSeeder extends Seeder
 {
@@ -14,6 +16,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(5)->has(Question::factory()->count(3))->create();
+        // ->has(Question::factory()->count(5)->has(Answer::factory()->count(3)))
+        User::factory()->count(10)->create();
+    }
+
+    public function collect(): Collection
+    {
+        // ->has(Question::factory()->count(5)->has(Answer::factory()->count(3)))
+        return User::factory()->count(10)->create();
     }
 }
