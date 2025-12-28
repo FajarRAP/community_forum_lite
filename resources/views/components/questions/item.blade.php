@@ -1,15 +1,15 @@
 @props(['question'])
 
-<div class="px-6 py-4 border-t border-gray-200">
+<div class="py-4">
     {{-- Title --}}
     <a href="{{ route('question.show', ['question' => $question, 'slug' => Str::slug($question->slug)]) }}"
-        class="text-xl font-semibold text-indigo-500 hover:text-indigo-700 transition">{{ $question->title }}</a>
+        class="text-lg font-semibold text-indigo-500 hover:text-indigo-700 transition sm:text-xl">{{ $question->title }}</a>
 
     {{-- Body --}}
-    <p class="mt-2 text-gray-600 leading-relaxed">{{ Str::limit($question->body, 150) }}</p>
+    <p class="mt-2 text-gray-600 leading-relaxed text-sm sm:text-base">{{ Str::limit($question->body, 150) }}</p>
 
     {{-- Meta Footer --}}
-    <div class="mt-3 flex items-center justify-end text-sm text-gray-500 gap-1">
+    <div class="mt-3 flex items-center justify-end text-gray-500 gap-1 text-xs sm:text-sm">
         <span>{{ __('asked') }}</span>
         <span class="font-medium text-gray-900">{{ $question->created_at->diffForHumans() }}</span>
         <span>{{ __('by') }}</span>
