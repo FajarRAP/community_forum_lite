@@ -27,8 +27,12 @@
             </div>
         </div>
 
-        <h5 class="text-lg">{{ __('Your Answer') }}</h5>
-        <x-primary-button class="mt-2">{{ __('Post Your Answer') }}</x-primary-button>
+        <form class="space-y-4">
+            @csrf
+            <h5 class="text-lg">{{ __('Your Answer') }}</h5>
+            <x-text-area-input name="answer" rows="6" />
+            <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
+        </form>
     </div>
     <x-footer />
 </x-app-layout>
