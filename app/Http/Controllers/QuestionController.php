@@ -12,16 +12,32 @@ class QuestionController extends Controller
 {
     public function index()
     {
+        $questions = Question::with(['user', 'tags'])->latest()->paginate(10);
+
         return view('question.index', [
-            'questions' => Question::latest()->with(['tags'])->paginate(10),
-            'question_count' => Question::all()->count(),
+            'questions' => $questions,
+            'question_count' => $questions->total(),
         ]);
     }
 
-    public function show(Question $question)
+    public function show(Question $question, string $slug)
     {
+        if ($question->slug !== $slug) {
+            return redirect()->route('question.show', [
+                'question' => $question,
+                'slug' => $question->slug,
+            ], 301);
+        }
+
+        $question->load(['user', 'tags']);
+
+        $question->incrementViewCount();
+
+        $answers = $question->answers()->with('user')->latest()->paginate(5);
+
         return view('question.show', [
-            'question' => $question->load(['answers.user']),
+            'question' => $question,
+            'answers' => $answers,
         ]);
     }
 
@@ -37,8 +53,8 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|min:0|max:255',
-            'body' => 'required|string|min:0',
+            'title' => 'required|string|min:10|max:255',
+            'body' => 'required|string|min:50',
             'tags' => 'required|string',
         ]);
 
