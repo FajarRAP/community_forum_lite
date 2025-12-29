@@ -53,10 +53,12 @@
         {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
 
         @auth
-            <form class="space-y-4">
+            <form action="{{ route('answers.store', ['question' => $question]) }}" method="POST" class="space-y-4">
+                @method('POST')
                 @csrf
+
                 <h5 class="text-lg">{{ __('Your Answer') }}</h5>
-                <x-text-area-input name="answer" rows="6" />
+                <x-text-area-input name="body" rows="6" />
                 <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
             </form>
         @endauth
