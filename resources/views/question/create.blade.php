@@ -1,4 +1,15 @@
 <x-app-layout>
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+
+        <style>
+            :root {
+                --tagify-dd-color-primary: #6366f1;
+            }
+        </style>
+    @endpush
+
     <div class="max-w-4xl mx-auto py-4 bg-white min-h-screen px-4 sm:px-6">
         <div class="flex justify-between items-end text-xl font-medium sm:text-2xl">
             <h1>{{ __('Ask Question') }}</h1>
@@ -33,7 +44,7 @@
                 </div>
                 <span
                     class="text-gray-500 text-xs">{{ __('Add up to 5 tags to describe what your question is about. Start typing to see suggestions.') }}</span>
-                <x-text-input id="tags" class="block mt-1 w-full" name="tags" :value="old('tags')" required />
+                <x-text-input id="tags" class="mt-1 w-full" name="tags" :value="old('tags')" required />
                 <x-input-error :messages="$errors->get('tags')" class="mt-2" />
             </div>
 
@@ -43,10 +54,6 @@
     <x-footer />
 
     @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-
         <script>
             const whitelist = @json($tags);
             const tagInput = document.querySelector('input[name=tags]');
