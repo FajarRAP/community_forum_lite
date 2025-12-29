@@ -28,10 +28,14 @@ class DatabaseSeeder extends Seeder
                     $tags->random(rand(1, 5))->pluck('id')->toArray()
                 );
 
-                Answer::factory()->count(3)->create([
+                $answerCount = rand(3, 10);
+                Answer::factory()->count($answerCount)->create([
                     'user_id' => $users->where('id', '!=', $user->id)->random()->id,
                     'question_id' => $question->id,
                 ]);
+
+                $question->answers_count = $answerCount;
+                $question->save();
             }
         }
     }
