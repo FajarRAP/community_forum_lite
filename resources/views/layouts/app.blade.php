@@ -35,6 +35,8 @@
         <main>
             {{ $slot }}
         </main>
+
+        <x-flash-message />
     </div>
 
     @stack('scripts')
