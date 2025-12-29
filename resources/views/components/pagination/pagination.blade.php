@@ -1,13 +1,18 @@
+@props(['includeShowing' => true])
+
 <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
     aria-label="Table navigation">
-    <span class="text-sm font-normal text-gray-500 ">
-        {{ __('Showing') }}
-        @if ($paginator->firstItem())
-            <span class="font-semibold text-gray-900 ">{{ $paginator->firstItem() }}-{{ $paginator->lastItem() }}</span>
-        @endif
-        {{ __('of') }}
-        <span class="font-semibold text-gray-900 ">{{ $paginator->total() }}</span>
-    </span>
+    @if ($includeShowing)
+        <span class="text-sm font-normal text-gray-500 ">
+            {{ __('Showing') }}
+            @if ($paginator->firstItem())
+                <span
+                    class="font-semibold text-gray-900 ">{{ $paginator->firstItem() }}-{{ $paginator->lastItem() }}</span>
+            @endif
+            {{ __('of') }}
+            <span class="font-semibold text-gray-900 ">{{ $paginator->total() }}</span>
+        </span>
+    @endif
     <ul class="inline-flex items-stretch -space-x-px">
         @php
             $prevUrl = $paginator->onFirstPage() ? null : $paginator->previousPageUrl();
