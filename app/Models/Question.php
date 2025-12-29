@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Number;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
@@ -17,6 +19,16 @@ class Question extends Model
     {
         DB::table('questions')->where('id', $this->id)->increment('views');
         $this->views++;
+    }
+
+    public function viewsDisplay()
+    {
+        return Number::abbreviate($this->views);
+    }
+
+    public function bodyPreview()
+    {
+        return Str::limit($this->body, 150);
     }
 
     public function user()
