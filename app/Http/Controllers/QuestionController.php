@@ -12,9 +12,8 @@ class QuestionController extends Controller
 {
     public function index()
     {
-
         return view('question.index', [
-            'questions' => Question::latest()->paginate(5),
+            'questions' => Question::latest()->with(['tags'])->paginate(10),
             'question_count' => Question::all()->count(),
         ]);
     }
@@ -22,7 +21,7 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         return view('question.show', [
-            'question' => $question,
+            'question' => $question->load(['answers.user']),
         ]);
     }
 
