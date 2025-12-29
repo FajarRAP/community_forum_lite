@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/questions', [QuestionController::class, 'store'])->name('question.store');
     Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('question.update');
     Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+
+    Route::get('/answers/{answer}/edit', [AnswerController::class, 'edit'])->name('answers.edit');
+    Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
+    Route::put('/answers/{answer}', [AnswerController::class, 'update'])->name('answers.update');
+    Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answers.destroy');
+    Route::patch('/answers/{answer}/best', [AnswerController::class, 'markAsBest'])
+        ->name('answers.markAsBest');
 });
 
 Route::get('/about', null)->name('about');
