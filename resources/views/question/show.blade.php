@@ -23,60 +23,47 @@
             </p>
         </div>
 
-        <div class="border-y border-gray-200 py-4 my-4 space-y-6">
-            <p>{{ $question->body }}</p>
-            <div class="flex gap-1">
-                @foreach ($question->tags as $tag)
-                    <x-questions.tag :$tag />
+        <div class="my-4 space-y-6">
+            <x-questions.question :$question />
+
+            <p class="text-xl">{{ $question->answers_count }} {{ __('Answers') }}</p>
+
+            {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
+
+            <div class="divide-y divide-gray-200 border-b border-gray-200">
+                @foreach ($answers as $answer)
+                    <x-questions.answer :$answer />
                 @endforeach
             </div>
-        </div>
 
-        <p class="text-xl">{{ $question->answers_count }} {{ __('Answers') }}</p>
+            {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
 
-        {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
+            @auth
+                <form action="{{ route('answers.store', ['question' => $question]) }}" method="POST" class="space-y-4">
+                    @method('POST')
+                    @csrf
 
-        <div class="divide-y divide-gray-200 border-b border-gray-200">
-            @foreach ($answers as $answer)
-                <div class="py-4 space-y-4">
-                    <p>{{ $answer->body }}</p>
-                    <p class="text-sm text-gray-500 text-right">{{ __('answered') }}
-                        {{ $answer->created_at->format('M d, Y') }}
-                        {{ __('at') }}
-                        {{ $answer->created_at->format('H:i') }}
-                        <span class="font-medium text-indigo-600">{{ $answer->user->name }}</span>
+                    <h5 class="text-lg">{{ __('Your Answer') }}</h5>
+                    <x-text-area-input name="body" rows="6" />
+                    <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
+                </form>
+            @endauth
+
+            @guest
+                <div class="space-y-4">
+                    <h5 class="text-lg">{{ __('Your Answer') }}</h5>
+                    <p>
+                        <a href="{{ route('register') }}"
+                            class="text-indigo-500 hover:text-indigo-700 transition">{{ __('Register') }}</a>
+                        {{ __('or') }}
+                        <a href="{{ route('login') }}"
+                            class="text-indigo-500 hover:text-indigo-700 transition">{{ __('Login') }}</a>
+                        {{ __('to post your answer.') }}
                     </p>
+                    <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
                 </div>
-            @endforeach
+            @endguest
         </div>
-
-        {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
-
-        @auth
-            <form action="{{ route('answers.store', ['question' => $question]) }}" method="POST" class="space-y-4">
-                @method('POST')
-                @csrf
-
-                <h5 class="text-lg">{{ __('Your Answer') }}</h5>
-                <x-text-area-input name="body" rows="6" />
-                <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
-            </form>
-        @endauth
-
-        @guest
-            <div class="space-y-4">
-                <h5 class="text-lg">{{ __('Your Answer') }}</h5>
-                <p>
-                    <a href="{{ route('register') }}"
-                        class="text-indigo-500 hover:text-indigo-700 transition">{{ __('Register') }}</a>
-                    {{ __('or') }}
-                    <a href="{{ route('login') }}"
-                        class="text-indigo-500 hover:text-indigo-700 transition">{{ __('Login') }}</a>
-                    {{ __('to post your answer.') }}
-                </p>
-                <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
-            </div>
-        @endguest
     </div>
     <x-footer />
 </x-app-layout>
