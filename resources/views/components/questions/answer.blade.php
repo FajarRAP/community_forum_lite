@@ -2,15 +2,13 @@
 
 <div class="flex gap-3 py-4">
     <div>
-        {{-- {{ $question->isUpvotedBy(auth()->user()) ? 'bg-orange-100 border-orange-500 text-orange-600' : 'text-gray-400' }} --}}
-        <x-questions.up-vote :action="route('vote', ['type' => 'answers', 'id' => $answer->id])" />
+        <x-questions.up-vote :action="route('vote', ['type' => 'answers', 'id' => $answer->id])" :isUpVoted="$answer->isUpVotedBy(auth()->user())" />
 
         <div class="text-2xl font-bold my-2 text-center text-gray-700">
             {{ $answer->votes_count }}
         </div>
 
-        {{-- {{ $question->isDownvotedBy(auth()->user()) ? 'bg-orange-100 border-orange-500 text-orange-600' : 'text-gray-400' }} --}}
-        <x-questions.down-vote :action="route('vote', ['type' => 'answers', 'id' => $answer->id])" />
+        <x-questions.down-vote :action="route('vote', ['type' => 'answers', 'id' => $answer->id])" :isDownVoted="$answer->isDownvotedBy(auth()->user())" />
     </div>
     <div class="space-y-4 w-full">
         <p>{{ $answer->body }}</p>
