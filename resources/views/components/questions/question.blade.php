@@ -20,5 +20,11 @@
                 <x-questions.tag :$tag />
             @endforeach
         </div>
+        <p class="text-sm text-gray-500 text-right">{{ __('asked') }}
+            {{ $question->created_at->format('M d, Y') }}
+            {{ __('at') }}
+            {{ $question->created_at->format('H:i') }}
+            <span class="font-medium text-indigo-600">{{ $question->user->name }}</span>
+        </p>
     </div>
 </div>
