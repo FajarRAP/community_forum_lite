@@ -14,7 +14,7 @@ class Question extends Model
 {
     use HasFactory, SoftDeletes, Votable;
 
-    protected $fillable = ['user_id', 'title', 'body', 'slug'];
+    protected $fillable = ['user_id', 'title', 'body', 'slug', 'votes_count'];
 
     public function incrementViewCount(): void
     {
