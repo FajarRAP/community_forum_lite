@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
 
 Route::fallback(fn() => redirect('/questions'));
@@ -24,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answers.destroy');
     Route::patch('/answers/{answer}/best', [AnswerController::class, 'markAsBest'])
         ->name('answers.markAsBest');
+
+    Route::post('/vote/{type}/{id}', VoteController::class)->name('vote');
 });
 
 Route::get('/about', null)->name('about');
