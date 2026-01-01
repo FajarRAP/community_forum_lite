@@ -12,7 +12,7 @@
         {{-- {{ $question->isDownvotedBy(auth()->user()) ? 'bg-orange-100 border-orange-500 text-orange-600' : 'text-gray-400' }} --}}
         <x-questions.down-vote :action="route('vote', ['type' => 'answers', 'id' => $answer->id])" />
     </div>
-    <div class="space-y-4">
+    <div class="space-y-4 w-full">
         <p>{{ $answer->body }}</p>
         <p class="text-sm text-gray-500 text-right">{{ __('answered') }}
             {{ $answer->created_at->format('M d, Y') }}
