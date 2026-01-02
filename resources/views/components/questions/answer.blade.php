@@ -10,9 +10,9 @@
 
         <x-questions.down-vote :action="route('vote', ['type' => 'answers', 'id' => $answer->id])" :isDownVoted="$answer->isDownvotedBy(auth()->user())" />
     </div>
-    <div class="space-y-4 w-full">
+    <div class="flex flex-col gap-4 justify-between w-full">
         <p>{{ $answer->body }}</p>
-        <p class="text-sm text-gray-500 text-right">{{ __('answered') }}
+        <p class="text-sm text-gray-500 text-right items-end">{{ __('answered') }}
             {{ $answer->created_at->format('M d, Y') }}
             {{ __('at') }}
             {{ $answer->created_at->format('H:i') }}

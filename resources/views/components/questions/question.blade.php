@@ -11,7 +11,7 @@
         <x-questions.down-vote :action="route('vote', ['type' => 'questions', 'id' => $question->id])" :isDownVoted="$question->isDownvotedBy(auth()->user())" />
     </div>
 
-    <div class="space-y-2">
+    <div class="flex flex-col gap-4 justify-between w-full">
         <p>{{ $question->body }}</p>
         <div class="flex gap-1">
             @foreach ($question->tags as $tag)
