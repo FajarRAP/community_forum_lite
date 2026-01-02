@@ -34,7 +34,7 @@
 
                     <div class="divide-y divide-gray-200 border-b border-gray-200">
                         @foreach ($answers as $answer)
-                            <x-questions.answer :$answer />
+                            <x-questions.answer :$answer :$question />
                         @endforeach
                     </div>
 
