@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
                 ]);
 
                 $question->answers_count = $answerCount;
+                $question->views = rand(0, 1000);
                 $question->save();
             }
         }
