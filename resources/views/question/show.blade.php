@@ -24,19 +24,23 @@
         </div>
 
         <div class="my-4 space-y-6">
-            <x-questions.question :$question />
+            <div class="border-t border-gray-200">
+                <x-questions.question :$question />
 
-            <p class="text-xl">{{ $question->answers_count }} {{ __('Answers') }}</p>
+                @if ($question->answers_count > 0)
+                    <p class="text-xl">{{ $question->answers_count }} {{ __('Answers') }}</p>
 
-            {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
+                    {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
 
-            <div class="divide-y divide-gray-200 border-b border-gray-200">
-                @foreach ($answers as $answer)
-                    <x-questions.answer :$answer />
-                @endforeach
+                    <div class="divide-y divide-gray-200 border-b border-gray-200">
+                        @foreach ($answers as $answer)
+                            <x-questions.answer :$answer />
+                        @endforeach
+                    </div>
+
+                    {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
+                @endif
             </div>
-
-            {{ $answers->links('components.pagination.pagination', ['includeShowing' => false]) }}
 
             @auth
                 <form action="{{ route('answers.store', ['question' => $question]) }}" method="POST" class="space-y-4">
