@@ -13,6 +13,11 @@ class Answer extends Model
 
     protected $fillable = ['user_id', 'question_id', 'body', 'votes_count'];
 
+    public function isBestAnswer(Question $question)
+    {
+        return $this->id === $question->best_answer_id;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
