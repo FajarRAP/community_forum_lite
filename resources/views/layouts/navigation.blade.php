@@ -18,9 +18,16 @@
                 </div>
             </div>
 
+            <!-- Search Input -->
+            <div class="my-3.5 flex grow mx-6">
+                <form action="" method="GET" class="grow">
+                    <x-text-input placeholder="Search ..." class="w-full" name="search" :value="request()->query('search')" />
+                </form>
+            </div>
+
             <!-- Settings Dropdown -->
             @auth
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <div class="hidden sm:flex sm:items-center">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -61,7 +68,7 @@
             @endauth
 
             @guest
-                <div class="hidden sm:flex sm:items-center sm:ms-6 sm:gap-2">
+                <div class="hidden sm:flex sm:items-center sm:gap-2">
                     <a href="{{ route('login') }}">
                         <x-secondary-button>{{ __('Log in') }}</x-secondary-button>
                     </a>
