@@ -19,11 +19,13 @@
             </div>
 
             <!-- Search Input -->
-            <div class="my-3.5 flex grow mx-6">
-                <form action="" method="GET" class="grow">
-                    <x-text-input placeholder="Search ..." class="w-full" name="search" :value="request()->query('search')" />
-                </form>
-            </div>
+            @if (!request()->routeIs('profile.edit'))
+                <div class="my-3.5 flex grow mx-6">
+                    <form action="" method="GET" class="grow">
+                        <x-text-input placeholder="Search ..." class="w-full" name="search" :value="request()->query('search')" />
+                    </form>
+                </div>
+            @endif
 
             <!-- Settings Dropdown -->
             @auth
