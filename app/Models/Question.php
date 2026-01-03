@@ -49,6 +49,11 @@ class Question extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    public function bestAnswer()
+    {
+        return $this->hasOne(Answer::class, 'id', 'best_answer_id');
+    }
+
     #[Scope]
     protected function searchQuestion(Builder $query, ?string $search)
     {
