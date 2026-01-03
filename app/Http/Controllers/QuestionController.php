@@ -6,6 +6,7 @@ use App\Models\Question;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class QuestionController extends Controller
@@ -60,6 +61,8 @@ class QuestionController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Question::class);
+
         $validated = $request->validate([
             'title' => 'required|string|min:10|max:255',
             'body' => 'required|string|min:50',
