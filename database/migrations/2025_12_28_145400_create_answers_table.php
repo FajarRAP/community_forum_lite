@@ -22,6 +22,10 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::table('questions', function (Blueprint $table) {
+            $table->foreign('best_answer_id')->references('id')->on('answers')->onDelete('set null');
+        });
     }
 
     /**
@@ -29,6 +33,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropForeign(['best_answer_id']);
+        });
         Schema::dropIfExists('answers');
     }
 };
