@@ -6,11 +6,14 @@ use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AnswerController extends Controller
 {
     public function store(Request $request, Question $question)
     {
+        Gate::authorize('create', Answer::class);
+
         $validated = $request->validate([
             'body' => 'required|string|min:10',
         ]);
@@ -35,5 +38,23 @@ class AnswerController extends Controller
 
             return back()->with('success', __('Your answer has been posted successfully.'));
         });
+    }
+
+    public function markAsBest(Answer $answer)
+    {
+        Gate::authorize('markAsBest', $answer);
+
+        $message = '';
+        $question = $answer->question;
+
+        if ($question->best_answer_id === $answer->id) {
+            $question->update(['best_answer_id' => null]);
+            $message = __('The best answer has been removed.');
+        } else {
+            $question->update(['best_answer_id' => $answer->id]);
+            $message = __('The answer has been marked as the best.');
+        }
+
+        return back()->with('success', $message);
     }
 }
