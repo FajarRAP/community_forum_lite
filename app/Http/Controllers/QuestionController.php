@@ -10,12 +10,17 @@ use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $questions = Question::with(['user', 'tags'])->latest()->paginate(10);
+        $search = $request->query('search');
+
+        $questions = Question::with(['user', 'tags'])
+            ->searchQuestion($search)
+            ->latest()
+            ->paginate(10);
 
         return view('question.index', [
-            'questions' => $questions,
+            'questions' => $questions->appends(['search' => $search]),
             'question_count' => $questions->total(),
         ]);
     }
@@ -33,7 +38,10 @@ class QuestionController extends Controller
 
         $question->incrementViewCount();
 
-        $answers = $question->answers()->with('user')->latest()->paginate(5);
+        $answers = $question->answers()
+            ->with('user')
+            ->latest()
+            ->paginate(5);
 
         return view('question.show', [
             'question' => $question,
@@ -68,7 +76,7 @@ class QuestionController extends Controller
             ]);
 
             // Attach Tags
-            $tags = json_decode($validated['tags']);
+            $tags = json_decode($validated['tags']) ?? [];
             $tagIds = [];
             foreach ($tags as $tag) {
                 $tagName = $tag->value;
