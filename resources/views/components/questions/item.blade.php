@@ -13,15 +13,15 @@
 
 <div class="py-4 flex gap-3">
     <div class="flex flex-col gap-1.5 items-end basis-1/5">
-        <p class="text-sm">{{ $question->votes_count . ' ' . __('votes') }} </p>
+        <p class="text-xs sm:text-sm">{{ $question->votes_count . ' ' . __('votes') }} </p>
         @if ($question->answers_count > 0)
-            <p class="text-sm text-green-700 border border-green-700 rounded px-1.5">
+            <p class="text-xs text-green-700 border border-green-700 rounded px-1.5 sm:text-sm">
                 {{ $question->answers_count . ' ' . __('answers') }}
             </p>
         @else
-            <p class="text-sm text-gray-500">{{ $question->answers_count . ' ' . __('answers') }}</p>
+            <p class="text-xs text-gray-500 sm:text-sm">{{ $question->answers_count . ' ' . __('answers') }}</p>
         @endif
-        <p class="text-sm {{ $color }}">{{ $question->viewsDisplay() . ' ' . __('views') }} </p>
+        <p class="text-xs {{ $color }} sm:text-sm">{{ $question->viewsDisplay() . ' ' . __('views') }} </p>
     </div>
     <div>
         {{-- Title --}}
@@ -32,13 +32,14 @@
         <p class="mt-2 text-gray-600 leading-relaxed text-sm sm:text-base">{{ $question->bodyPreview() }}</p>
 
         {{-- Meta Footer --}}
-        <div class="mt-3 flex items-center justify-between text-gray-500 gap-1 text-xs sm:text-sm">
+        <div
+            class="mt-3 flex flex-col items-start text-gray-500 gap-2 text-xs sm:flex-row sm:justify-between sm:text-sm sm:gap-1 sm:items-center">
             <div class="flex gap-1">
                 @foreach ($question->tags as $tag)
                     <x-questions.tag :$tag />
                 @endforeach
             </div>
-            <p>
+            <p class="self-end sm:self-auto">
                 <span>{{ __('asked') }}</span>
                 <span class="font-medium text-gray-900">{{ $question->created_at->diffForHumans() }}</span>
                 <span>{{ __('by') }}</span>
