@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Trait\Votable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -45,5 +47,17 @@ class Question extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    #[Scope]
+    protected function searchQuestion(Builder $query, ?string $search)
+    {
+        $query->when($search, function ($query, $search) {
+            $query->whereLike('title', "%$search%")
+                ->orWhereLike('body', "%$search%")
+                ->orWhereHas('tags', function ($tagQuery) use ($search) {
+                    $tagQuery->whereLike('name', "%$search%");
+                });
+        });
     }
 }
