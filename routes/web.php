@@ -10,7 +10,7 @@ Route::fallback(fn() => redirect('/questions'));
 
 Route::get('/', fn() => redirect('/questions'));
 Route::get('/dashboard', fn() => redirect('/questions'))->name('dashboard');
-Route::get('/about', null)->name('about');
+Route::get('/about', fn() => view('about'))->name('about');
 
 Route::get('/questions', [QuestionController::class, 'index'])->name('home');
 Route::get('/questions/{question}/{slug}', [QuestionController::class, 'show'])->name('question.show');
