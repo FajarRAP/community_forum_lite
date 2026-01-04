@@ -7,7 +7,7 @@
 @endphp
 
 @if ($canMark)
-    <form action="{{ route('answers.markAsBest', ['answer' => $answer]) }}" method="POST">
+    <form action="{{ route('answer.markAsBest', ['answer' => $answer]) }}" method="POST">
         @csrf
         @method('PATCH')
         <button type="submit" title="Mark as best answer"

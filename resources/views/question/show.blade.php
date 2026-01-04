@@ -43,7 +43,7 @@
             </div>
 
             @auth
-                <form action="{{ route('answers.store', ['question' => $question]) }}" method="POST" class="space-y-4">
+                <form action="{{ route('answer.store', ['question' => $question]) }}" method="POST" class="space-y-4">
                     @method('POST')
                     @csrf
 

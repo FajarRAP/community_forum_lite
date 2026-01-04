@@ -21,12 +21,12 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('question.update');
     Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
-    Route::get('/answers/{answer}/edit', [AnswerController::class, 'edit'])->name('answers.edit');
-    Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
-    Route::put('/answers/{answer}', [AnswerController::class, 'update'])->name('answers.update');
-    Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answers.destroy');
+    Route::get('/answers/{answer}/edit', [AnswerController::class, 'edit'])->name('answer.edit');
+    Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answer.store');
+    Route::put('/answers/{answer}', [AnswerController::class, 'update'])->name('answer.update');
+    Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answer.destroy');
     Route::patch('/answers/{answer}/best', [AnswerController::class, 'markAsBest'])
-        ->name('answers.markAsBest');
+        ->name('answer.markAsBest');
 
     Route::post('/vote/{type}/{id}', VoteController::class)->name('vote');
 
