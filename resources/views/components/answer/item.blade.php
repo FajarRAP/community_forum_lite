@@ -34,7 +34,7 @@
     </div>
     @can(['update', 'delete'], $answer)
         <div class="flex items-center gap-4 mt-4 mb-6">
-            <a href="{{ route('question.edit', $question) }}"
+            <a href="{{ route('answer.edit', $answer) }}"
                 class="text-gray-500 hover:text-indigo-600 font-medium text-sm transition">
                 {{ __('Edit') }}
             </a>
