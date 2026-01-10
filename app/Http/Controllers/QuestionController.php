@@ -100,6 +100,18 @@ class QuestionController extends Controller
         });
     }
 
+    public function edit(Question $question)
+    {
+        Gate::authorize('update', $question);
+
+        $tags = Tag::pluck('name');
+
+        return view('question.edit', [
+            'question' => $question,
+            'tags' => $tags,
+        ]);
+    }
+
     public function destroy(Question $question)
     {
         Gate::authorize('delete', $question);
