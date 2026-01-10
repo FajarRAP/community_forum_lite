@@ -99,4 +99,18 @@ class QuestionController extends Controller
             ])->with('success', 'Question created successfully.');
         });
     }
+
+    public function destroy(Question $question)
+    {
+        Gate::authorize('delete', $question);
+
+        try {
+            $question->delete();
+
+            return redirect()->route('home')
+                ->with('success', 'Question deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors('Failed to delete the question. Please try again.');
+        }
+    }
 }
