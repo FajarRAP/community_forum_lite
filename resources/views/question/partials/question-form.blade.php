@@ -2,7 +2,7 @@
 
 @php
     $action = $question ? route('question.update', $question) : route('question.store');
-    $method = $question ? 'PUT' : 'POST';
+    $method = $question ? 'PATCH' : 'POST';
     $tagsValue = $question ? $question->tags->pluck('name')->implode(',') : '';
     $buttonText = $question ? __('Update Your Question') : __('Post Your Question');
 @endphp
