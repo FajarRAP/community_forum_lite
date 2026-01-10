@@ -57,4 +57,26 @@ class AnswerController extends Controller
 
         return back()->with('success', $message);
     }
+
+    public function destroy(Answer $answer)
+    {
+        Gate::authorize('delete', $answer);
+
+        try {
+            return DB::transaction(function () use ($answer) {
+                $question = $answer->question;
+
+                if ($question->best_answer_id === $answer->id) {
+                    $question->update(['best_answer_id' => null]);
+                }
+
+                $answer->delete();
+                $question->decrement('answers_count');
+
+                return back()->with('success', __('The answer has been deleted successfully.'));
+            });
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => __('An error occurred while deleting the answer.')]);
+        }
+    }
 }
