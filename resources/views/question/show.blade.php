@@ -48,7 +48,7 @@
                     @csrf
 
                     <h5 class="text-lg">{{ __('Your Answer') }}</h5>
-                    <x-text-area-input name="body" rows="6" />
+                    <x-text-area-input name="body" rows="6" :value="old('body')" />
                     <x-primary-button>{{ __('Post Your Answer') }}</x-primary-button>
                 </form>
             @endauth
