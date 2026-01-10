@@ -67,6 +67,26 @@ class AnswerController extends Controller
         ]);
     }
 
+    public function update(Request $request, Answer $answer)
+    {
+        Gate::authorize('update', $answer);
+
+        $validated = $request->validate([
+            'body' => 'required|string|min:10',
+        ]);
+
+        $answer->update([
+            'body' => $validated['body'],
+        ]);
+
+        return redirect()
+            ->route('question.show', [
+                'question' => $answer->question,
+                'slug' => $answer->question->slug,
+            ])
+            ->with('success', __('The answer has been updated successfully.'));
+    }
+
     public function destroy(Answer $answer)
     {
         Gate::authorize('delete', $answer);
