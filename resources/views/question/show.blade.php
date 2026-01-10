@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout x-data="{ action: '' }">
     <div class="max-w-4xl mx-auto px-4 py-4 bg-white min-h-screen sm:px-6">
         <div class="flex flex-col-reverse gap-4 justify-between text-2xl font-medium sm:flex sm:flex-row sm:gap-16">
             <h4>{{ $question->title }}</h4>
@@ -26,20 +26,6 @@
         <div class="my-4 space-y-6">
             <div class="border-t border-gray-200">
                 <x-questions.question :$question />
-
-                @can(['update', 'delete'], $question)
-                    <div class="flex items-center gap-4 mt-4 mb-6">
-                        <a href="{{ route('question.edit', $question) }}"
-                            class="text-gray-500 hover:text-indigo-600 font-medium text-sm transition">
-                            {{ __('Edit') }}
-                        </a>
-
-                        <button x-data x-on:click.prevent="$dispatch('open-modal', 'confirm-question-deletion')"
-                            class="text-red-500 hover:text-red-700 font-medium text-sm transition">
-                            {{ __('Delete') }}
-                        </button>
-                    </div>
-                @endcan
 
                 @if ($question->answers_count > 0)
                     <p class="text-xl">{{ $question->answers_count }} {{ __('Answers') }}</p>
@@ -86,28 +72,6 @@
 
     <x-footer />
 
-    <x-modal name="confirm-question-deletion" focusable>
-        <form method="post" action="{{ route('question.destroy', $question) }}" class="p-6">
-            @csrf
-            @method('delete')
-
-            <h2 class="text-lg font-medium text-gray-900">
-                {{ __('Are you sure you want to delete this question?') }}
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
-                {{ __('Once this question is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete this question.') }}
-            </p>
-
-            <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Cancel') }}
-                </x-secondary-button>
-
-                <x-danger-button class="ms-3">
-                    {{ __('Delete Question') }}
-                </x-danger-button>
-            </div>
-        </form>
-    </x-modal>
+    @include('question.partials.delete-question-modal', ['question' => $question])
+    @include('question.partials.delete-answer-model')
 </x-app-layout>
