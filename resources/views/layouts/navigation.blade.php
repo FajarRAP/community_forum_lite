@@ -21,7 +21,7 @@
             <!-- Search Input -->
             @if (request()->routeIs('question.*', 'dashboard'))
                 <div class="my-3.5 flex grow mx-6">
-                    <form action="" method="GET" class="grow">
+                    <form action="{{ route('home') }}" method="GET" class="grow">
                         <x-text-input placeholder="Search ..." class="w-full" name="search" :value="request()->query('search')" />
                     </form>
                 </div>
