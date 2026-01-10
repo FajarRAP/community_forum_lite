@@ -16,7 +16,7 @@ Route::get('/questions', [QuestionController::class, 'index'])->name('home');
 Route::get('/questions/{question}/{slug}', [QuestionController::class, 'show'])->name('question.show');
 Route::middleware(['auth'])->group(function () {
     Route::get('/questions/create', [QuestionController::class, 'create'])->name('question.create');
-    Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
+    Route::get('/question/edit/{question}', [QuestionController::class, 'edit'])->name('question.edit');
     Route::post('/questions', [QuestionController::class, 'store'])->name('question.store');
     Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('question.update');
     Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
