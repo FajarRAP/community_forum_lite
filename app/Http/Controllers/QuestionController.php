@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class QuestionController extends Controller
 {
@@ -79,18 +80,7 @@ class QuestionController extends Controller
             ]);
 
             // Attach Tags
-            $tags = json_decode($validated['tags']) ?? [];
-            $tagIds = [];
-            foreach ($tags as $tag) {
-                $tagName = $tag->value;
-                $slug = Str::slug($tagName);
-                $tag = Tag::firstOrCreate(
-                    ['slug' => $slug],
-                    ['name' => $tagName],
-                );
-                $tagIds[] = $tag->id;
-            }
-
+            $tagIds = $this->getTagIds($validated['tags']);
             $question->tags()->sync($tagIds);
 
             return redirect()->route('question.show', [
@@ -112,6 +102,42 @@ class QuestionController extends Controller
         ]);
     }
 
+    public function update(Request $request, Question $question)
+    {
+        Gate::authorize('update', $question);
+
+        $validated = $request->validate([
+            'title' => [
+                'required',
+                'string',
+                'min:10',
+                'max:255',
+                Rule::unique('questions', 'title')->ignore($question->id),
+            ],
+            'body' => 'required|string|min:50',
+            'tags' => 'required|string',
+        ]);
+
+        return DB::transaction(function () use ($question, $validated) {
+            // Update Question
+            $newSlug = $question->title === $validated['title'] ? $question->slug : Str::slug($validated['title']);
+            $question->update([
+                'title' => $validated['title'],
+                'body' => $validated['body'],
+                'slug' => $newSlug,
+            ]);
+
+            // Attach Tags
+            $tagIds = $this->getTagIds($validated['tags']);
+            $question->tags()->sync($tagIds);
+
+            return redirect()->route('question.show', [
+                'question' => $question,
+                'slug' => $question->slug
+            ])->with('success', 'Question updated successfully.');
+        });
+    }
+
     public function destroy(Question $question)
     {
         Gate::authorize('delete', $question);
@@ -124,5 +150,26 @@ class QuestionController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors('Failed to delete the question. Please try again.');
         }
+    }
+
+    private function getTagIds(string $jsonTags)
+    {
+        $tags = json_decode($jsonTags) ?? [];
+        $tagIds = [];
+        foreach ($tags as $tag) {
+            if (empty($tag->value) || !isset($tag->value)) {
+                continue;
+            }
+
+            $tagName = $tag->value;
+            $slug = Str::slug($tagName);
+            $tag = Tag::firstOrCreate(
+                ['slug' => $slug],
+                ['name' => $tagName],
+            );
+            $tagIds[] = $tag->id;
+        }
+
+        return $tagIds;
     }
 }
