@@ -58,6 +58,15 @@ class AnswerController extends Controller
         return back()->with('success', $message);
     }
 
+    public function edit(Answer $answer)
+    {
+        Gate::authorize('update', $answer);
+
+        return view('answer.edit', [
+            'answer' => $answer,
+        ]);
+    }
+
     public function destroy(Answer $answer)
     {
         Gate::authorize('delete', $answer);
