@@ -32,7 +32,7 @@
         @endisset
 
         <!-- Page Content -->
-        <main>
+        <main {{ $attributes }}>
             {{ $slot }}
         </main>
 
