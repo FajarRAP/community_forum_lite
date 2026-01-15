@@ -27,8 +27,8 @@
                                 class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-3">
                                 <span class="text-xl font-bold">1</span>
                             </div>
-                            <h4 class="font-bold text-gray-800">Nama Mahasiswa 1</h4>
-                            <p class="text-sm text-gray-500">NIM: 12345678</p>
+                            <h4 class="font-bold text-gray-800">Nurul Aulia Salsabila </h4>
+                            <p class="text-sm text-gray-500">NIM: 2200018313</p>
                             <p class="text-xs text-indigo-600 mt-1 font-medium">Backend Developer</p>
                         </div>
 
@@ -38,8 +38,8 @@
                                 class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-3">
                                 <span class="text-xl font-bold">2</span>
                             </div>
-                            <h4 class="font-bold text-gray-800">Nama Mahasiswa 2</h4>
-                            <p class="text-sm text-gray-500">NIM: 87654321</p>
+                            <h4 class="font-bold text-gray-800">Khairunisa Salsabila Kurniawan</h4>
+                            <p class="text-sm text-gray-500">NIM: 2200018307</p>
                             <p class="text-xs text-indigo-600 mt-1 font-medium">Frontend Developer</p>
                         </div>
 
@@ -49,9 +49,9 @@
                                 class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-3">
                                 <span class="text-xl font-bold">3</span>
                             </div>
-                            <h4 class="font-bold text-gray-800">Nama Mahasiswa 3</h4>
-                            <p class="text-sm text-gray-500">NIM: 11223344</p>
-                            <p class="text-xs text-indigo-600 mt-1 font-medium">Database Analyst</p>
+                            <h4 class="font-bold text-gray-800">Aliefa Rafi Antoni</h4>
+                            <p class="text-sm text-gray-500">NIM: 2100018273</p>
+                            <p class="text-xs text-indigo-600 mt-1 font-medium">Data Analyst</p>
                         </div>
 
                     </div>
